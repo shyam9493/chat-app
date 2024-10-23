@@ -1,35 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import io from "socket.io";
+import { useEffect, useState } from "react";
+
+const socket = io.connect("http://localhost:3001");
 
 function App() {
-  const [count, setCount] = useState(0)
+  //Room State
+  const [room, setRoom] = useState("");
 
+  // Messages States
+  const [message, setMessage] = useState("");
+  const [messageReceived, setMessageReceived] = useState("");
+
+  const joinRoom = () => {
+    if (room !== "") {
+      socket.emit("join_room", room);
+    }
+  };
+
+  const sendMessage = () => {
+    socket.emit("send_message", { message, room });
+  };
+
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      setMessageReceived(data.message);
+    });
+  }, [socket]);
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+   <>
+      <input
+        placeholder="Room Number..."
+        onChange={(event) => {
+          setRoom(event.target.value);
+        }}
+      />
+      <button onClick={joinRoom}> Join Room</button>
+      <input
+        placeholder="Message..."
+        onChange={(event) => {
+          setMessage(event.target.value);
+        }}
+      />
+      <button onClick={sendMessage}> Send Message</button>
+      <h1> Message:</h1>
+      {messageReceived}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
