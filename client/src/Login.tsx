@@ -20,7 +20,7 @@ export default function Login() {
     try {
       const response = await axiosInstance.post('/api/login', { username, password });
       console.log(response.data);
-      navigate('/dash'); 
+      navigate('/dash',{ state: { username } }); 
 
     } catch (err) {
       setError(err.response?.data?.message || 'An error occurred');

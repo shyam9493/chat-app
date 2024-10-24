@@ -1,6 +1,4 @@
 const User = require('../Models/User');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 
 const getData = async (req, res) => {
     try {
@@ -46,10 +44,8 @@ const login = async(req,res)=>{
         if (user.password!=password) {
             console.log("incorrect pass");
             return res.status(400).json({ message: 'Invalid Pass' });
-           
         }
-        const token = jwt.sign({ id: user._id }, "jwt_secret", { expiresIn: '1h' });
-        res.status(200).json({ token, user: { id: user._id, username: user.username, email: user.email } });
+        res.status(200).json({message:'some data' });
     } catch (error) {
         res.status(500).json({ message: 'Server error' });
     }

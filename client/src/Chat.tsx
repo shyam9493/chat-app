@@ -1,14 +1,16 @@
-// ChatWindow.js
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:3000');
+const socket = io('http://localhost:3000'); // Ensure this matches your server's address
 
-export default function ChatWindow({ user }) {
+export default function ChatWindow({ user, userfrom }) {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
+        // Join the chat to load previous messages
+        socket.emit('joinChat', { username1: user.username, username2: userfrom });
+
         // Load previous messages when the component mounts
         socket.on('loadMessages', (loadedMessages) => {
             setMessages(loadedMessages);
@@ -24,26 +26,33 @@ export default function ChatWindow({ user }) {
             socket.off('loadMessages');
             socket.off('newMessage');
         };
-    }, []);
+    }, [user.username, userfrom]);
 
     const handleSendMessage = () => {
         if (message.trim()) {
             const messageData = {
-                username: user.username,
+                usernameto: user.username,
+                usernamefrom: userfrom,
                 message: message,
             };
             socket.emit('sendMessage', messageData); // Send the message to the server
-            // setMessage(''); // Clear the input after sending
+            setMessage(''); // Clear the input after sending
         }
     };
 
+    // Filter messages to show only those between the two users
+    const filteredMessages = messages.filter(msg => 
+        (msg.usernamefrom === user.username && msg.usernameto === userfrom) ||
+        (msg.usernamefrom === userfrom && msg.usernameto === user.username)
+    );
+
     return (
         <div className="bg-white text-black w-[80vw] h-[80vh] p-5 rounded-lg shadow-lg flex flex-col">
-            <h2 className="text-xl font-bold mb-4">Chat with {user.username}</h2>
+            <h2 className="text-xl font-bold mb-4">Chat with {userfrom}</h2>
             <div className="flex-1 border h-full overflow-auto p-2 mb-2">
-                {messages.map((msg, index) => (
-                    <div key={index} className="mb-2">
-                        <strong>{msg.username}: </strong>{msg.message}
+                {filteredMessages.map((msg, index) => (
+                    <div key={index} className={`mb-2 ${msg.usernamefrom === userfrom ? 'bg-yellow-200' : 'bg-red-200'} p-2 rounded`}>
+                        <strong>{msg.usernamefrom}: </strong>{msg.message}
                     </div>
                 ))}
             </div>

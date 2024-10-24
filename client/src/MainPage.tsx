@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ChatWindow from './Chat'; // Import the ChatWindow component
 
-export default function MainPage() {
+export default function MainPage({username}) {
     const [users, setUsers] = useState([]);
     const [error, setError] = useState('');
     const [selectedUser, setSelectedUser] = useState(null); // State to track the selected user
+    const token = localStorage.getItem('token'); 
+    const loggedInUser = localStorage.getItem('username'); // Get logged-in user data
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -28,12 +30,12 @@ export default function MainPage() {
                 <ul>
                     {users.length > 0 ? (
                         users.map(user => (
-                            <li key={user.id} className="mb-4">
+                            <li key={user._id} className="mb-4">
                                 <button
                                     onClick={() => setSelectedUser(user)} // Set the selected user on click
                                     className="hover:bg-gray-700 p-2 rounded block w-full text-left"
                                 >
-                                    {user.username}
+                                    {user.username}{username && user.username === username ? ' (YOU)' : ''}
                                 </button>
                             </li>
                         ))
@@ -44,7 +46,7 @@ export default function MainPage() {
             </div>
 
             {/* Conditionally render the chat interface */}
-            {selectedUser && <ChatWindow user={selectedUser} />}
+            {selectedUser && <ChatWindow user={selectedUser} userfrom={username} />}
         </div>
     );
 }

@@ -1,3 +1,4 @@
+import LogoutButton from './Logout'; // Adjust the import path as needed
 export default function Nav(){
     return (
         <>
@@ -15,7 +16,7 @@ export default function Nav(){
             </div>
             <ul className="flex space-x-6">
             <li>  
-                <a href="#" className="text-white hover:text-gray-300">Logout</a>
+               <LogoutButton />
             </li>
             </ul>
         </div>
