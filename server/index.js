@@ -31,6 +31,12 @@ const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 const app = express();
 const server = http.createServer(app);
 
+
+
+app.get('/',async (req,res)=>{
+    res.send("Backend Working......");
+})
+
 // Middleware
 app.use(cors({
     origin: 'http://localhost:5173', // Allow this origin
