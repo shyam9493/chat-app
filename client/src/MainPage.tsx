@@ -12,7 +12,7 @@ export default function MainPage({username}) {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/getall'); 
+                const response = await axios.get('duo-chat-back.vercel.app/api/getall'); 
                 setUsers(response.data);
             } catch (err) {
                 setError(err.response?.data?.message || 'An error occurred while fetching users');

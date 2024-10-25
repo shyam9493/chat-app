@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:3000'); // Ensure this matches your server's address
+const socket = io('duo-chat-back.vercel.app'); 
 
 export default function ChatWindow({ user, userfrom }) {
     const [message, setMessage] = useState('');
