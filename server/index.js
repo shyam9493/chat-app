@@ -35,6 +35,9 @@ const server = http.createServer(app);
 
 app.get('/',async (req,res)=>{
     res.send("Backend Working......");
+});
+app.get('/say',async(req,res)=>{
+    res.send("Its Works Priya");
 })
 
 // Middleware
