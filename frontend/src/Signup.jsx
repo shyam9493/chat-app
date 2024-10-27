@@ -17,7 +17,7 @@ export default function Signup() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('duo-chat-back.vercel.app/api/signup', {
+      const response = await axios.post('https://duo-chat-back.vercel.app/api/signup', {
         username,
         password,
         email,
