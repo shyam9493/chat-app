@@ -5,9 +5,7 @@ import ChatWindow from './Chat'; // Import the ChatWindow component
 export default function MainPage({username}) {
     const [users, setUsers] = useState([]);
     const [error, setError] = useState('');
-    const [selectedUser, setSelectedUser] = useState(null); // State to track the selected user
-    const token = localStorage.getItem('token'); 
-    const loggedInUser = localStorage.getItem('username'); // Get logged-in user data
+    const [selectedUser, setSelectedUser] = useState(null); 
 
     useEffect(() => {
         const fetchUsers = async () => {
