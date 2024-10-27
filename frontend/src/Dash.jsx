@@ -9,10 +9,8 @@ export default function Dash() {
 
 
     if (!username) {
-        navigate('/login'); 
+        navigate('/'); 
         return null; 
-    }else{
-        navigate('/');
     }
 
     return (
