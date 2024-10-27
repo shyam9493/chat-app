@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const axiosInstance = axios.create({
-  baseURL: 'duo-chat-back.vercel.app',
+  baseURL: 'https://duo-chat-back.vercel.app',
 });
 
 export default function Login() {
