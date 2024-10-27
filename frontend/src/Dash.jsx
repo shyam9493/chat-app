@@ -11,6 +11,8 @@ export default function Dash() {
     if (!username) {
         navigate('/login'); 
         return null; 
+    }else{
+        navigate('/');
     }
 
     return (
