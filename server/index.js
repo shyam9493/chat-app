@@ -48,6 +48,7 @@ app.use(cors({
 
 // Set up Socket.IO with CORS
 const io = new Server(server, {
+    transports: ['websocket'],
     cors: {
         origin: ['https://chat-app-duo.vercel.app','https://localhost:5173'], // Allow this origin
         methods: ['GET', 'POST'],
