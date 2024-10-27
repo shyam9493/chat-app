@@ -1,27 +1,12 @@
 {
-    "version": 2,
+    "version":2,
     "builds": [
-      { "src": "*.js", "use": "@vercel/node" },
-      { "src": "Routes/*.js", "use": "@vercel/node" },
-      { "src": "Controllers/*.js", "use": "@vercel/node" },
-      { "src": "Models/*.js", "use": "@vercel/node" }
+      { "src": "*.js", "use": "@vercel/node" }
     ],
     "routes": [
-      {
-        "src": "/Routes/(.*)",
-        "dest": "/Routes/$1"
-      },
-      {
-        "src": "/Controllers/(.*)",
-        "dest": "/Controllers/$1"
-      },
-      {
-        "src": "/Models/(.*)",
-        "dest": "/Models/$1"
-      },
-      {
-        "src": "/(.*)",
-        "dest": "/$1"
-      }
+        {
+          "src": "/(.*)",
+          "dest": "/"
+        }
     ]
   }
