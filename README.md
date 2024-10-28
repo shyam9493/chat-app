@@ -61,7 +61,7 @@ To activate the ai messages use @duo-ai preceeding your message such that the me
 
 I first started by creating a user interface with the help of tailwind css, then integrated user authentication and then started by looking at the documentation of socket.io and understood emit and on functions and its functionalities , then saved the messages sent and recieved by unique pair(userfrom,userto) and after the simple chat application, I exteneded my thoughts by implementing ai into the application using gemini ai api, used NLP to know wheather the chat is requesting for ai or not .
 
-## API 
+## API Response
 
 ```bash
 Subject: Weather Update: Mist 
