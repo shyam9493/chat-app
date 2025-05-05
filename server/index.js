@@ -42,7 +42,7 @@ app.get('/say',async(req,res)=>{
 
 // Middleware
 app.use(cors({
-    origin: ['https://chat-app-duo.vercel.app','https://localhost:5173'], // Allow this origin
+    origin: '*', // Allow this origin
     credentials: true // Allow credentials if needed
 }));
 
@@ -50,7 +50,7 @@ app.use(cors({
 const io = new Server(server, {
     transports: ['websocket'],
     cors: {
-        origin: ['https://chat-app-duo.vercel.app','https://localhost:5173'], // Allow this origin
+        origin: '*', // Allow this origin
         methods: ['GET', 'POST'],
         credentials: true // Allow credentials if needed
     }
